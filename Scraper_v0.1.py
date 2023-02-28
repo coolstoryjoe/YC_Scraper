@@ -1,18 +1,28 @@
 from urllib.request import Request, urlopen
-
+import requests
 from bs4 import BeautifulSoup as soup 
 
-urls = ['https://www.ycombinator.com/companies?batch=W23']
+url = 'https://www.ycombinator.com/companies?batch=W23'
 
-req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
+r = requests.get(url)
 
-Uclient = urlopen(req)
+new_soup = soup(r.text, 'html.parser')
 
-hot_soup = soup(Uclient.read(),'html.parser')
+this = new_soup.find_all(name="div", attrs={"class": "q1vdpoLtJkwUT8jN22K2 dsStC1AzZueqISZqfHLZ"})
 
-Uclient.close()
+print(this)
 
-print(hot_soup)
+
+# Uclient = urlopen(url)
+
+# hot_soup = soup(Uclient.read(),'html.parser').prettify().encode("utf-8")
+
+# Uclient.close()
+
+#conditions = hot_soup.find_all('div','q1vdpoLtJkwUT8jN22K2 dsStC1AzZueqISZqfHLZ')
+
+#print(r.text)
+
 
 # def pull_surf_condidtions():
 # 	waves = []
