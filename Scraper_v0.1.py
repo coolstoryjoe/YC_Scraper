@@ -1,16 +1,33 @@
-from urllib.request import Request, urlopen
-import requests
 from bs4 import BeautifulSoup as soup 
+import io
 
-url = 'https://www.ycombinator.com/companies?batch=W23'
+#f = io.open("output.html", mode="r", encoding="utf-8")
 
-r = requests.get(url)
+f = open("output.html","r", encoding="utf-8")
 
-new_soup = soup(r.text, 'html.parser')
+index = f.read().encode('utf8').decode('ascii', 'ignore')
 
-this = new_soup.find_all(name="div", attrs={"class": "q1vdpoLtJkwUT8jN22K2 dsStC1AzZueqISZqfHLZ"})
+new_soup = soup(index, 'html.parser')
+
+this = new_soup.find_all("a")[0]
+
+name = this.find('span').text
 
 print(this)
+
+#print(new_soup)
+
+# import codecs
+#f = codecs.open("output.html", "r", "utf-8")
+# f.read()
+
+#print(f)
+
+
+
+
+
+#print(index)
 
 
 # Uclient = urlopen(url)
